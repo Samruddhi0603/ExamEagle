@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamEagle</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://images.saymedia-content.com/.image/t_share/MTc4NzM1OTc4MzE0MzQzOTM1/how-to-create-cool-website-backgrounds-the-ultimate-guide.png'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            color: white;
+        }
+
+        .background-message {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 3em;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .background-message.welcome {
+            top: calc(20% - 1cm); /* Move 1cm upwards */
+        }
+
+        .background-message.curious {
+            top: calc(10% - 1cm); /* Move 1cm upwards */
+            display: none;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            display: none;
+        }
+
+        .container.login-container {
+            display: block;
+        }
+	.container h2 {
+            color: #FF69B4; /* Light Pink */
+        }
+
+        .container input[type="text"],
+        .container input[type="email"],
+        .container input[type="password"],
+        .container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .container button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .container button:hover {
+            background-color: #45a049;
+        }
+
+        .chatbot-container iframe {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-message welcome">Welcome to ExamEagle</div>
+    <div class="background-message curious">Exam doubts? Ask us!</div>
+
+    <div class="container login-container" id="loginContainer">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+
+    <div class="container chatbot-container" id="chatbotContainer">
+        <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/ff7b3222-040a-47a1-942c-1fe108db16ca"></iframe>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show login container initially
+            document.getElementById('loginContainer').style.display = 'block';
+
+            // Handle login form submission
+            document.getElementById('loginForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Validate the password
+                const password = document.querySelector('input[name="password"]').value;
+                const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@_^*&!])[A-Za-z\d$@_^*&!]{8,}$/;
+                if (!passwordPattern.test(password)) {
+                    alert('Password must be at least 8 characters long and include at least one alphabetic character, one numeric character, and one special character ($,@,_,^,*,&,!).');
+                    return;
+                }
+                // Hide the login container and welcome message
+                document.getElementById('loginContainer').style.display = 'none';
+                document.querySelector('.background-message.welcome').style.display = 'none';
+                // Show the chatbot container and curious message
+                document.getElementById('chatbotContainer').style.display = 'block';
+                document.querySelector('.background-message.curious').style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
